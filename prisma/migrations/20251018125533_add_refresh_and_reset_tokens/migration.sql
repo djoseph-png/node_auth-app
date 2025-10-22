@@ -20,3 +20,7 @@ CREATE INDEX "RefreshToken_token_idx" ON "RefreshToken"("token");
 
 -- CreateIndex
 CREATE INDEX "RefreshToken_expiresAt_idx" ON "RefreshToken"("expiresAt");
+
+-- Backfill RefreshToken from legacy Token table if present
+INSERT INTO "RefreshToken" ("id","token","userId","expiresAt","revokedAt","createdAt")
+SELECT "id","refresh","userId","expiresAt",NULL,"createdAt" FROM "Token";

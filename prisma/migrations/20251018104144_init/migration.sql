@@ -7,7 +7,7 @@ CREATE TABLE "User" (
     "isActive" BOOLEAN NOT NULL DEFAULT false,
     "activationToken" TEXT,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" DATETIME NOT NULL
+    "updatedAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 -- CreateTable

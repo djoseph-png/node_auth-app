@@ -12,3 +12,8 @@ app.use('/auth', require('./routes/auth'));
 app.use('/profile', require('./routes/profile'));
 
 module.exports = app;
+
+/** Global 404 */
+app.use((req, res) => {
+  res.status(404).json({ message: 'Route not found' });
+});

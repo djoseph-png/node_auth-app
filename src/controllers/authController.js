@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const { PrismaClient } = require('@prisma/client');
 const { registrationSchema } = require('../utils/validators');
-const { sendActivationEmail } = require('../services/emailService');
+const { sendActivationEmail } = require('../services/email');
 const {
   signAccessToken,
   signRefreshToken,
@@ -43,7 +43,7 @@ async function registration(req, res) {
 
     const activationLink = `${process.env.CLIENT_URL}/activate/${encodeURIComponent(email)}/${activationToken}`;
 
-    await sendActivationEmail({ to: email, name, activationLink });
+    await sendActivationEmail(email, token);
 
     return res.status(201).json({
       message: 'Usuário criado. Verifique seu e-mail para ativar a conta.',

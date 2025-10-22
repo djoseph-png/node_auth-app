@@ -14,6 +14,11 @@ const {
   pruneExpired,
 } = require('../services/tokenService');
 const guest = require('../middleware/guest');
+// password rules: at least 8 chars, 1 uppercase, 1 number
+function isStrongPassword(pw) {
+  return /^(?=.*[A-Z])(?=.*\d).{8,}$/.test(pw);
+}
+
 const auth = require('../middleware/auth');
 
 const router = Router();

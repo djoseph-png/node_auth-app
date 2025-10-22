@@ -5,6 +5,11 @@ const bcrypt = require('bcryptjs');
 const { randomBytes } = require('crypto');
 const auth = require('../middleware/auth');
 const { sendEmailChangeNotice } = require('../services/email');
+// password rules: at least 8 chars, 1 uppercase, 1 number
+function isStrongPassword(pw) {
+  return /^(?=.*[A-Z])(?=.*\d).{8,}$/.test(pw);
+}
+
 
 const router = Router();
 
@@ -41,8 +46,7 @@ router.patch('/password', auth, async (req, res) => {
 });
 
 // ✅ PATCH /profile/email (auth-only; inicia verificação + notifica e-mail antigo)
-router.patch('/email', auth, async (req, res) => {
-  const { newEmail } = req.body;
+router.patch('/email', auth, async (req, res) => { const { newEmail, currentPassword } = req.body;
   if (!newEmail) return res.status(400).json({ error: 'newEmail required' });
 
   const emailChangeToken = randomBytes(32).toString('hex');

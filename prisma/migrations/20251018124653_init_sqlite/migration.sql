@@ -11,9 +11,7 @@ ALTER TABLE "User" ADD COLUMN "emailChangeToken" TEXT;
 ALTER TABLE "User" ADD COLUMN "emailChangeTokenExpires" DATETIME;
 ALTER TABLE "User" ADD COLUMN "pendingEmail" TEXT;
 
--- DropTable
-PRAGMA foreign_keys=off;
-DROP TABLE "Token";
+-- Skipped dropping Token to preserve data during migration
 PRAGMA foreign_keys=on;
 
 -- CreateTable
