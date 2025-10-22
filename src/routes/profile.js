@@ -5,11 +5,15 @@ const bcrypt = require('bcryptjs');
 const { randomBytes } = require('crypto');
 const auth = require('../middleware/auth');
 const { sendEmailChangeNotice } = require('../services/email');
+<<<<<<< HEAD
 // password rules: at least 8 chars, 1 uppercase, 1 number
 function isStrongPassword(pw) {
   return /^(?=.*[A-Z])(?=.*\d).{8,}$/.test(pw);
 }
 
+=======
+const { isStrongPassword, isValidEmail } = require('../utils/validators');
+>>>>>>> 0fe3a41 (fix: migrations, auth flows, email, middlewares, 404_V2)
 
 const router = Router();
 
@@ -40,13 +44,18 @@ router.patch('/password', auth, async (req, res) => {
   const ok = await bcrypt.compare(oldPassword, user.passwordHash);
   if (!ok) return res.status(400).json({ error: 'Old password is incorrect' });
 
+  if (!isStrongPassword(newPassword)) return res.status(400).json({ error: 'Password does not meet rules' });
   const passwordHash = await bcrypt.hash(newPassword, 10);
   await prisma.user.update({ where: { id: user.id }, data: { passwordHash } });
   return res.json({ ok: true });
 });
 
 // ✅ PATCH /profile/email (auth-only; inicia verificação + notifica e-mail antigo)
+<<<<<<< HEAD
 router.patch('/email', auth, async (req, res) => { const { newEmail, currentPassword } = req.body;
+=======
+router.patch('/email', auth, async (req, res) => { const { newEmail, confirmEmail, currentPassword } = req.body;
+>>>>>>> 0fe3a41 (fix: migrations, auth flows, email, middlewares, 404_V2)
   if (!newEmail) return res.status(400).json({ error: 'newEmail required' });
 
   const emailChangeToken = randomBytes(32).toString('hex');

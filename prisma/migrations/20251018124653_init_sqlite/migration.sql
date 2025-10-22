@@ -6,12 +6,18 @@
 
 */
 -- AlterTable
-ALTER TABLE "User" ADD COLUMN "activationTokenExpires" DATETIME;
+ALTER TABLE "User" ADD COLUMN "activationTokenExpires" DATETIME DEFAULT CURRENT_TIMESTAMP;
 ALTER TABLE "User" ADD COLUMN "emailChangeToken" TEXT;
 ALTER TABLE "User" ADD COLUMN "emailChangeTokenExpires" DATETIME;
 ALTER TABLE "User" ADD COLUMN "pendingEmail" TEXT;
 
+<<<<<<< HEAD
 -- Skipped dropping Token to preserve data during migration
+=======
+-- DropTable
+PRAGMA foreign_keys=off;
+-- DROP TABLE \"Token\"; -- skipped
+>>>>>>> 0fe3a41 (fix: migrations, auth flows, email, middlewares, 404_V2)
 PRAGMA foreign_keys=on;
 
 -- CreateTable

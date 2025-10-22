@@ -11,6 +11,9 @@ app.get('/health', (_req, res) => res.json({ ok: true }));
 app.use('/auth', require('./routes/auth'));
 app.use('/profile', require('./routes/profile'));
 
+
+app.use((req, res) => res.status(404).json({ message: 'Route not found' }));
+
 module.exports = app;
 
 /** Global 404 */

@@ -43,7 +43,11 @@ async function registration(req, res) {
 
     const activationLink = `${process.env.CLIENT_URL}/activate/${encodeURIComponent(email)}/${activationToken}`;
 
+<<<<<<< HEAD
     await sendActivationEmail(email, token);
+=======
+    await sendActivationEmail(email, activationToken);
+>>>>>>> 0fe3a41 (fix: migrations, auth flows, email, middlewares, 404_V2)
 
     return res.status(201).json({
       message: 'Usuário criado. Verifique seu e-mail para ativar a conta.',

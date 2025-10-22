@@ -44,3 +44,10 @@ exports.sendEmailChangeNotice = async (oldEmail, newEmail) => {
   const text = `We received a request to change your email to ${newEmail}. If this wasn't you, contact support.`;
   await send(oldEmail, 'Email change notice', text);
 };
+
+
+exports.sendEmailChangeVerification = async (to, token) => {
+  const url = `${process.env.CLIENT_URL || 'http://localhost:5173'}/confirm-email?token=${token}`;
+  const text = `Confirm your new email:\n\n${url}\n\nIf you didn't request this, ignore.`;
+  await send(to, 'Confirm your new email', text);
+};

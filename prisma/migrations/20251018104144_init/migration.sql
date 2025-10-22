@@ -11,10 +11,10 @@ CREATE TABLE "User" (
 );
 
 -- CreateTable
-CREATE TABLE "Token" (
+CREATE TABLE "RefreshToken" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "userId" TEXT NOT NULL,
-    "refresh" TEXT NOT NULL,
+    "token" TEXT NOT NULL,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "expiresAt" DATETIME NOT NULL,
     CONSTRAINT "Token_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE CASCADE ON UPDATE CASCADE
@@ -27,4 +27,4 @@ CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 CREATE UNIQUE INDEX "User_activationToken_key" ON "User"("activationToken");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Token_refresh_key" ON "Token"("refresh");
+CREATE UNIQUE INDEX "RefreshToken_token_key" ON "RefreshToken"("token");

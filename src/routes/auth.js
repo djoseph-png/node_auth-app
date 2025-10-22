@@ -14,11 +14,15 @@ const {
   pruneExpired,
 } = require('../services/tokenService');
 const guest = require('../middleware/guest');
+<<<<<<< HEAD
 // password rules: at least 8 chars, 1 uppercase, 1 number
 function isStrongPassword(pw) {
   return /^(?=.*[A-Z])(?=.*\d).{8,}$/.test(pw);
 }
 
+=======
+const { isStrongPassword, isValidEmail } = require('../utils/validators');
+>>>>>>> 0fe3a41 (fix: migrations, auth flows, email, middlewares, 404_V2)
 const auth = require('../middleware/auth');
 
 const router = Router();

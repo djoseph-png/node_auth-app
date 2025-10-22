@@ -41,3 +41,7 @@ CREATE INDEX "RefreshToken_userId_idx" ON "RefreshToken"("userId");
 CREATE INDEX "RefreshToken_expiresAt_idx" ON "RefreshToken"("expiresAt");
 PRAGMA foreign_keys=ON;
 PRAGMA defer_foreign_keys=OFF;
+
+-- Conditional backfill from legacy Token table
+INSERT INTO "RefreshToken" ("id","token","userId","expiresAt","createdAt")
+SELECT "id","refresh","userId","expiresAt","createdAt" FROM "Token";
